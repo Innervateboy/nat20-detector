@@ -2,9 +2,9 @@
   "id": "nat20-reactor",
   "name": "nat20-reactor",
   "title": "Nat 20 / Nat 1 Chat Reactions",
-  "description": "Schickt coole Sprüche in den Chat bei kritischen Erfolgen oder Patzern.",
-  "version": "1.0.0",
-  "author": "ChatGPT & Genosse",
+  "description": "Sendet automatisch lustige Reaktionen in den Chat bei kritischen Erfolgen oder Patzern. Unterstützt Attacken und andere Würfe separat.",
+  "version": "1.1.0",
+  "author": "Genosse & ChatGPT",
   "minimumCoreVersion": "13",
   "compatibleCoreVersion": "13",
   "system": "dnd5e",
@@ -13,7 +13,7 @@
   "esmodules": [],
   "styles": [],
   "packs": [],
-  "url": "",
-  "manifest": "",
-  "download": ""
+  "url": "https://github.com/Innervateboy/nat20-reactor",
+  "manifest": "https://raw.githubusercontent.com/Innervateboy/nat20-reactor/main/module.json",
+  "download": "https://github.com/Innervateboy/nat20-reactor/releases/download/v1.1.0/nat20-reactor.zip"
 }
