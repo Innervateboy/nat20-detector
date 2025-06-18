@@ -141,25 +141,41 @@ class ActorSelectorForm extends FormApplication {
 }
 
 
-Hooks.once("ready", () => {
-  game.settings.register("nat20-detector", "triggerTestMessage", {
-    name: "🧪 Reaktion testen",
-    hint: "Klicke hier, um eine Testnachricht auszulösen (vom gewählten Actor).",
-    scope: "client",
-    config: true,
-    type: Boolean,
-    default: false,
-    onChange: value => {
-      if (!value) return;
-      const actorId = game.settings.get("nat20-detector", "preferredActorId");
-      const actor = game.actors.get(actorId);
-      if (!actor) {
-        ui.notifications.warn("Kein gültiger Actor für Test gefunden.");
-        return;
-      }
-      const speaker = ChatMessage.getSpeaker({ actor });
-      ChatMessage.create({ speaker, content: "<strong>Testnachricht: Es funktioniert!</strong>" });
-      game.settings.set("nat20-detector", "triggerTestMessage", false); // Reset Schalter
-    }
+// Eigener Einstellungsbereich mit echtem Button
+Hooks.once("init", () => {
+  game.settings.registerMenu("nat20-detector", "testInterface", {
+    name: "Testfunktion ausführen",
+    label: "🧪 Reaktion testen",
+    hint: "Führe eine Testnachricht mit deinem gewählten Actor aus.",
+    icon: "fas fa-vial",
+    type: TestButtonForm,
+    restricted: false
   });
 });
+
+class TestButtonForm extends FormApplication {
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      id: "nat20-test-button",
+      title: "🧪 Testnachricht auslösen",
+      template: "templates/apps/test-button.html",
+      width: 400,
+      height: "auto"
+    });
+  }
+
+  getData() {
+    return {};
+  }
+
+  async _updateObject(event, formData) {
+    const actorId = game.settings.get("nat20-detector", "preferredActorId");
+    const actor = game.actors.get(actorId);
+    if (!actor) {
+      ui.notifications.warn("Kein gültiger Actor für Test gefunden.");
+      return;
+    }
+    const speaker = ChatMessage.getSpeaker({ actor });
+    ChatMessage.create({ speaker, content: "<strong>Testnachricht: Es funktioniert!</strong>" });
+  }
+}
